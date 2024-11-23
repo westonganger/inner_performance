@@ -1,7 +1,6 @@
 <tr>
   <td><%= event.name %></td>
   <td><%= number_to_human(event.duration, units: { unit: 'ms' }) %></td>
-  <td><%= number_to_human(event.view_runtime, units: { unit: 'ms' }) %></td>
   <td><%= number_to_human(event.db_runtime, units: { unit: 'ms' }) %></td>
   <td class="text-end"><%= event.created_at %></td>
 </tr>

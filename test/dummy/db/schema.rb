@@ -10,14 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_11_23_073034) do
+ActiveRecord::Schema[8.0].define(version: 2024_11_23_121600) do
   create_table "inner_performance_events", force: :cascade do |t|
     t.string "name"
-    t.string "format"
     t.integer "duration"
     t.integer "views"
     t.integer "db"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "properties", default: "{}"
   end
 end
