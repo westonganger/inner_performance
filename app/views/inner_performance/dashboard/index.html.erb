@@ -1,0 +1,40 @@
+<div class="mb-4">
+  <div class="card">
+    <div class="card-body">
+      <span class="card-subtitle d-block">Average duration</span>
+      <span class="card-title h1 d-block mb-0"><%= number_to_human(@average_duration, units: { unit: 'ms' }) %></span>
+    </div>
+  </div>
+</div>
+
+<h4>Most time consuming in total</h4>
+<table class="table">
+  <thead>
+    <th>Name</th>
+    <th class="text-end">Count</th>
+    <th class="text-end">Total duration</th>
+  </thead>
+  <tbody>
+    <% @biggest_events.each do |event| %>
+      <tr>
+        <td><%= event.name %></td>
+        <td class="text-end"><%= event.count %></td>
+        <td class="text-end"><%= number_to_human(event.duration, units: { unit: 'ms' }) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<h4 class="mt-4">Recent events</h4>
+<table class="table">
+  <thead>
+    <th><%= sort_link @q, :name, hide_indicator: true %></th>
+    <th><%= sort_link @q, :duration, hide_indicator: true %></th>
+    <th><%= sort_link @q, :view_runtime, hide_indicator: true %></th>
+    <th><%= sort_link @q, :db_runtime, hide_indicator: true %></th>
+    <th class="text-end"><%= sort_link @q, :created_at, hide_indicator: true %></th>
+  </thead>
+  <tbody>
+    <%= render @recent_events, cached: true %>
+  </tbody>
+</table>
