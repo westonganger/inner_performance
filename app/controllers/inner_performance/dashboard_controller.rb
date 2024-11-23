@@ -13,7 +13,7 @@ module InnerPerformance
                                                      .where(event: 'perform.active_job')
                                                      .average(:duration)
 
-      @biggest_events = InnerPerformance::Event.select('SUM(duration) as duration, name, COUNT(*) as count')
+      @biggest_events = InnerPerformance::Event.select('SUM(duration) as duration, name, COUNT(*) as count, AVG(duration) as avg_duration')
                                                .group(:name)
                                                .order('duration DESC')
                                                .limit(10)

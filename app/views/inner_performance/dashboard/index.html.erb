@@ -23,6 +23,7 @@
   <thead>
     <th>Name</th>
     <th class="text-end">Count</th>
+    <th class="text-end">Avg. duration</th>
     <th class="text-end">Total duration</th>
   </thead>
   <tbody>
@@ -30,6 +31,7 @@
       <tr>
         <td><%= event.name %></td>
         <td class="text-end"><%= event.count %></td>
+        <td class="text-end <%= row_class_from_duration(event.avg_duration) %>"><%= number_to_human(event.avg_duration, units: { unit: 'ms' }) %></td>
         <td class="text-end"><%= number_to_human(event.duration, units: { unit: 'ms' }) %></td>
       </tr>
     <% end %>
