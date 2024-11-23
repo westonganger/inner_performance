@@ -1,10 +1,13 @@
 module InnerPerformance
   module ApplicationHelper
-    # Based on https://stackoverflow.com/a/45428183/552936
+    # Based on https://stackoverflow.com/a/45428183/552936 and
+    # https://datadome.co/learning-center/how-to-reduce-server-response-time/
     def row_class_from_duration(duration)
-      if duration.between?(101, 1000)
+      medium_duration_range = InnerPerformance.configuration.medium_duration_range
+
+      if duration.between?(medium_duration_range[0], medium_duration_range[1])
         'text-warning'
-      elsif duration >= 1000
+      elsif duration >= medium_duration_range[1]
         'text-danger'
       end
     end
