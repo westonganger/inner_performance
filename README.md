@@ -17,6 +17,11 @@ $ rails inner_performance:install:migrations
 $ rails db:migrate
 ```
 
+Add inner_performance to `app/assets/config/manifest.js`
+```javascript
+//= link inner_performance/application.css
+```
+
 Mount UI in `routes.rb` (don't forget to protect it!)
 
 ```ruby

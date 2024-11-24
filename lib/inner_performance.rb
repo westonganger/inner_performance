@@ -46,12 +46,11 @@ module InnerPerformance
       end
     end
 
-    # Iterate throug the ignored_rules array and return false on first rule
-    # that returns `true`
+    # Check if all the ignore_rules returns false. If so, save the event.
     def save_event?(event)
-      InnerPerformance.configuration.ignore_rules.each_with_object([]) do |rule, arr|
-        arr << rule.call(event)
-      end.find { |r| r == true }
+      InnerPerformance.configuration.ignore_rules.find do |rule|
+        rule.call(event) == true
+      end.nil?
     end
   end
 end
