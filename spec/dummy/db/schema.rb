@@ -19,5 +19,6 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_24_111458) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text "properties", default: "{}"
+    t.string "type"
   end
 end
