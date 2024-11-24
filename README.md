@@ -62,7 +62,7 @@ InnerPerformance.configure do |config|
   #   the job that saves the events because that leeds to infinite loop.
   #   Better not remove this rule as it will lead to stack overflow.
   config.ignore_rules.push(
-    proc { |event| event.is_a?(ActiveSupport::Notifications::Event) }
+    proc { |event| !event.is_a?(ActiveSupport::Notifications::Event) }
   )
 end
 ```
