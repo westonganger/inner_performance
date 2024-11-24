@@ -21,9 +21,7 @@
     <th class="text-end"><%= sort_link @q, :created_at, hide_indicator: true %></th>
   </thead>
   <tbody>
-    <% @events.each do |event| %>
-      <%= render event.becomes(InnerPerformance::Event) %>
-    <% end %>
+    <%= render collection: @events, partial: 'inner_performance/events/event', cached: true %>
   </tbody>
 </table>
 
