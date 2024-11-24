@@ -29,7 +29,7 @@
   <tbody>
     <% @biggest_events.each do |event| %>
       <tr>
-        <td><%= event.name %></td>
+        <td><%= link_to event.name, events_path(q: { name_eq: event.name }) %></td>
         <td class="text-end"><%= event.count %></td>
         <td class="text-end <%= row_class_from_duration(event.avg_duration) %>"><%= number_to_human(event.avg_duration, units: { unit: 'ms' }) %></td>
         <td class="text-end"><%= number_to_human(event.duration, units: { unit: 'ms' }) %></td>
@@ -47,6 +47,8 @@
     <th class="text-end"><%= sort_link @q, :created_at, hide_indicator: true %></th>
   </thead>
   <tbody>
-    <%= render @recent_events, cached: true %>
+    <% @recent_events.each do |event| %>
+      <%= render event.becomes(InnerPerformance::Event) %>
+    <% end %>
   </tbody>
 </table>

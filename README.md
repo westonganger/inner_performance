@@ -1,28 +1,78 @@
 # InnerPerformance
-Short description and motivation.
-
-## Usage
-How to use my plugin.
+Database-backed modest performance monitoring tool for your Rails app.
 
 ## Installation
-Add this line to your application's Gemfile:
+Add `inner_performance` gem to your bundle
 
 ```ruby
-gem "inner_performance"
+$ bundle add inner_performance
 ```
 
-And then execute:
-```bash
-$ bundle
+Install migrations
+
+```ruby
+$ rails inner_performance:install:migrations
+$ rails db:migrate
 ```
 
-Or install it yourself as:
-```bash
-$ gem install inner_performance
+Mount UI in `routes.rb` (don't forget to protect it!)
+
+```ruby
+mount InnerPerformance::Engine, at: '/inner_performance'
 ```
 
-## Contributing
-Contribution directions go here.
+## Configuration
+
+inner_performance comes with some good defaults but in order to customize
+them, you have a following options available:
+
+```ruby
+InnerPerformance.configure do |config|
+  config.sample_rates = {
+    # 2% of all the requests will be stored and analyzed. I would
+    # recommend keeping it low because otherwise your database will
+    # get full of events quite fast. It will also probably impact
+    # your app's performance. As an example: In a Spree shop with
+    # approx. 170 requests per minute, keeping it at default 2%
+    # provides me more than enough data to analyze and locate the
+    # bottlenecks.
+    'process_action.action_controller' => 2,
+
+    # 100% of all the jobs will be stored and analyzed.
+    'perform.active_job' => 100
+  }
+
+  # For how long events should be stored. All the ones that exceeds
+  # this limit will be cleared out by InnerPerformance::CleanupJob.
+  config.events_retention = 1.week
+
+  # Used mostly by UI. Tells the UI what's the middle range when it
+  # comes to event duration. For the example below, all the durations
+  # between 0 and 200ms will be considered fast, all the ones between
+  # 200ms and 999ms will be considered medium and all above 999ms will
+  # be considered slow.
+  config.medium_duration_range = [200, 999]
+
+  # Rules for ignoring an event. There are two rules applied by default:
+  # * sample_rates - operates on configured sample rate and drops events
+  #   which do not got lucky when drawing a random number
+  # * InnerPerformance job namespace - we don't want to save events for
+  #   the job that saves the events because that leeds to infinite loop.
+  #   Better not remove this rule as it will lead to stack overflow.
+  config.ignore_rules.push(
+    proc { |event| event.is_a?(ActiveSupport::Notifications::Event) }
+  )
+end
+```
+
+`InnerPerformance` will produce an infinite amount of event records so in order
+to clean them up, you should periodically run
+`InnerPerformance::CleanupJob.perform_later`.
+
+# Alternatives
+
+* [rails_performance](https://github.com/igorkasyanchuk/rails_performance) - much better but depends on Redis
 
 ## License
-The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
+The gem is available as open source under the terms of the
+[MIT License](https://opensource.org/licenses/MIT).

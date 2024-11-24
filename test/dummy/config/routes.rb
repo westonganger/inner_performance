@@ -1,3 +1,3 @@
 Rails.application.routes.draw do
-  mount InnerPerformance::Engine => "/inner_performance"
+  mount InnerPerformance::Engine => "/performance"
 end

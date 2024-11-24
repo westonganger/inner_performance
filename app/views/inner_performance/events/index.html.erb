@@ -1,0 +1,30 @@
+<%= search_form_for @q, class: 'mb-4' do |f| %>
+  <div class="row align-items-end">
+    <div class="col-10">
+      <%= f.label :name_eq, class: 'form-label' %>
+      <%= f.select :name_eq, options_for_select(InnerPerformance::Event.all.pluck(:name).uniq, f.object.name_eq),
+                             { include_blank: true },
+                             { class: 'form-select' } %>
+    </div>
+
+    <div class="col-2 text-end">
+      <%= f.submit 'Filter', class: 'btn btn-primary' %>
+    </div>
+  </div>
+<% end %>
+
+<table class="table table-hover">
+  <thead>
+    <th><%= sort_link @q, :name, hide_indicator: true %></th>
+    <th><%= sort_link @q, :duration, hide_indicator: true %></th>
+    <th><%= sort_link @q, :db_runtime, hide_indicator: true %></th>
+    <th class="text-end"><%= sort_link @q, :created_at, hide_indicator: true %></th>
+  </thead>
+  <tbody>
+    <% @events.each do |event| %>
+      <%= render event.becomes(InnerPerformance::Event) %>
+    <% end %>
+  </tbody>
+</table>
+
+<%== pagy_nav(@pagy) if @pagy.pages > 1 %>

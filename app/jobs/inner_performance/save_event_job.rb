@@ -1,7 +1,8 @@
 module InnerPerformance
   class SaveEventJob < ApplicationJob
-    def perform(created_at:, event:, name:, duration:, db_runtime:, properties: {})
+    def perform(type:, created_at:, event:, name:, duration:, db_runtime:, properties: {})
       InnerPerformance::Event.create(
+        type: type,
         created_at: created_at,
         event: event,
         name: name,
