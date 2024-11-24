@@ -1,4 +1,4 @@
-# ☯️ InnerPerformance
+# ☯️ InnerPerformance [![Gem Version](https://badge.fury.io/rb/inner_performance.svg)](https://badge.fury.io/rb/inner_performance)
 Database-backed modest performance monitoring tool for your Rails app.
 
 <img width="1188" alt="image" src="https://github.com/user-attachments/assets/cb659c76-8139-4ee0-b683-d6acef227dc6">
