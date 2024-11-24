@@ -88,6 +88,7 @@ GEM
     connection_pool (2.4.1)
     crass (1.0.6)
     date (3.4.0)
+    diff-lcs (1.5.1)
     drb (2.2.1)
     erubi (1.13.0)
     globalid (1.2.1)
@@ -183,6 +184,23 @@ GEM
       psych (>= 4.0.0)
     reline (0.5.11)
       io-console (~> 0.5)
+    rspec-core (3.13.2)
+      rspec-support (~> 3.13.0)
+    rspec-expectations (3.13.3)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.13.0)
+    rspec-mocks (3.13.2)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.13.0)
+    rspec-rails (7.1.0)
+      actionpack (>= 7.0)
+      activesupport (>= 7.0)
+      railties (>= 7.0)
+      rspec-core (~> 3.13)
+      rspec-expectations (~> 3.13)
+      rspec-mocks (~> 3.13)
+      rspec-support (~> 3.13)
+    rspec-support (3.13.1)
     securerandom (0.3.2)
     sprockets (4.2.1)
       concurrent-ruby (~> 1.0)
@@ -232,6 +250,7 @@ PLATFORMS
 DEPENDENCIES
   inner_performance!
   puma
+  rspec-rails
   sprockets-rails
   sqlite3
 
