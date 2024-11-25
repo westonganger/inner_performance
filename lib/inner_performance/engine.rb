@@ -11,5 +11,10 @@ module InnerPerformance
     initializer 'inner_performance.install' do
       InnerPerformance.install!
     end
+
+    initializer 'inner_performance.assets.precompile' do |app|
+      # this initializer is only called when sprockets is in use
+      app.config.assets.precompile << 'inner_performance_manifest.js'
+    end
   end
 end
